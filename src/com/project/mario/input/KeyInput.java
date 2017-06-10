@@ -3,10 +3,14 @@ package com.project.mario.input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import com.project.mario.Handler;
+import com.project.mario.GameLogic;
 import com.project.mario.entity.Entity;
 import com.project.mario.enums.Facing;
 import com.project.mario.enums.Id;
+import com.project.mario.enums.PlayerStates;
+import com.project.mario.enums.TypeOfPipe;
+import com.project.mario.enviroment.EnviromentObject;
+import com.project.mario.gui.Button;
 
 
 /**
@@ -16,21 +20,23 @@ import com.project.mario.enums.Id;
 public class KeyInput implements KeyListener {
 	private boolean[] keys;
 	private boolean released;
-	private Handler handler;
+	private GameLogic gameLogic;
+	private Button[] launcherButtons;
 
-	public KeyInput(Handler handler) {
-		this.handler = handler;
+	public KeyInput(GameLogic gameLogic, Button[] launcherButtons) {
+		this.launcherButtons = launcherButtons;
+		this.gameLogic = gameLogic;
 		keys = new boolean[65535];
 		released = true;
 	}
 
 	private void launcherKeyListener() {
-		/*if (!Main.playing) {
-			int numberOfButtons = Main.launcher.buttons.length;
+		if (!gameLogic.playing) {
+			int numberOfButtons = launcherButtons.length;
 			if (keys[KeyEvent.VK_ENTER] || keys[KeyEvent.VK_SPACE]) {
 				for (int i = 0; i < numberOfButtons; i++) {
-					Button button = Main.launcher.buttons[i];
-					if (button.selected) {
+					Button button = launcherButtons[i];
+					if (button.isSelected()) {
 						button.triggerEvent();
 					}
 				}
@@ -38,50 +44,50 @@ public class KeyInput implements KeyListener {
 
 			if (keys[KeyEvent.VK_W] || keys[KeyEvent.VK_UP]) {
 				int i = 0;
-				while (i < numberOfButtons && Main.launcher.buttons[i].selected != true) {
+				while (i < numberOfButtons && launcherButtons[i].isSelected() != true) {
 					i++;
 				}
 
-				if (Main.launcher.buttons[i].selected && i > 0) {
-					Main.launcher.buttons[i].selected = false;
-					Main.launcher.buttons[i - 1].selected = true;
+				if (launcherButtons[i].isSelected() && i > 0) {
+					launcherButtons[i].setSelected(false);
+					launcherButtons[i - 1].setSelected(true);
 				}
 			}
 
 			if (keys[KeyEvent.VK_S] || keys[KeyEvent.VK_DOWN]) {
 				int i = 0;
-				while (i < numberOfButtons && Main.launcher.buttons[i].selected != true) {
+				while (i < numberOfButtons && launcherButtons[i].isSelected() != true) {
 					i++;
 				}
 
-				if (Main.launcher.buttons[i].selected && i < numberOfButtons - 1) {
-					Main.launcher.buttons[i].selected = false;
-					Main.launcher.buttons[i + 1].selected = true;
+				if (launcherButtons[i].isSelected() && i < numberOfButtons - 1) {
+					launcherButtons[i].setSelected(false);
+					launcherButtons[i + 1].setSelected(true);
 				}
 			}
-		}*/
+		}
 	}
 
 	private void playingKeyListener() {
-		for (Entity e : handler.entity) {
-			if (e.getId() == Id.player /*&& !(e.goingDownPipe || e.goingUpPipe) && e.state != PlayerStates.slidingOnPole
-					&& e.state != PlayerStates.goingToCastel && e.state != PlayerStates.dead && !Main.showDeathScreen
-					&& e.state != PlayerStates.goingToPrinces*/) {
+		for (Entity e : gameLogic.handler.entity) {
+			if (e.getId() == Id.player && !(e.isGoingDownPipe() || e.isGoingUpPipe()) && e.getState() != PlayerStates.slidingOnPole
+					&& e.getState() != PlayerStates.goingToCastel && e.getState() != PlayerStates.dead && !gameLogic.showDeathScreen
+					&& e.getState() != PlayerStates.goingToPrinces) {
 				if (keys[KeyEvent.VK_W] || keys[KeyEvent.VK_UP]) {
-					/*if (!e.jumping && e.ground) {
-						e.falling = false;
-						e.jumping = true;
-						e.gravity = 18.0;
-						e.ground = false;
-						if (e.height == 64) {
-							if (!Main.jumpSmallSound.isRunning())
-								Main.jumpSmallSound.play();
+					if (!e.isJumping() && e.isGround()) {
+						e.setFalling(false);
+						e.setJumping(true);
+						e.setGravity(18.0);
+						e.setGround(false);
+						if (e.getHeight() == 64) {
+							if (!gameLogic.sounds.jumpSmallSound.isRunning())
+								gameLogic.sounds.jumpSmallSound.play();
 						} else {
-							if (!Main.jumpBigSound.isRunning())
-								Main.jumpBigSound.play();
+							if (!gameLogic.sounds.jumpBigSound.isRunning())
+								gameLogic.sounds.jumpBigSound.play();
 						}
 
-					}*/
+					}
 				} else if (!e.isFalling()) {
 					double tempGravity = e.getGravity();
 					if (tempGravity >= 2.0) {
@@ -92,55 +98,55 @@ public class KeyInput implements KeyListener {
 				}
 
 				if (keys[KeyEvent.VK_S] || keys[KeyEvent.VK_DOWN]) {
-					/*for (Tile t : Main.handler.tile) {
-						if (t.getId() == Id.pipe && t.facing == 0) {
-							if (e.getBoundsBottomPipe().intersects(t.getBoundsPipe())) {
-								if (!e.goingDownPipe)
-									e.goingDownPipe = true;
+					for (EnviromentObject env: gameLogic.handler.enviromentObject) {
+						if (env.getId() == Id.pipe && env.getTypeOfPipe() == TypeOfPipe.verticalOpenEntrance) {
+							if (e.getBoundsBottomPipe().intersects(env.getBoundsPipe())) {
+								if (!e.isGoingDownPipe())
+									e.setGoingDownPipe(true);
 								e.setVelY(0);
-								if (!Main.pipe.isRunning())
-									Main.pipe.play();
-								Main.mainThemeSong.stop();
+								if (!gameLogic.sounds.pipe.isRunning())
+									gameLogic.sounds.pipe.play();
+								gameLogic.sounds.mainThemeSong.stop();
 							}
 						}
-					}*/
+					}
 				}
 
 				if (keys[KeyEvent.VK_A] || keys[KeyEvent.VK_LEFT]) {
 					e.setVelX(-5);
 					e.setFacing(Facing.left);
 				} else if (keys[KeyEvent.VK_D] || keys[KeyEvent.VK_RIGHT]) {
-					/*for (Tile t : Main.handler.tile) {
-						if (t.getId() == Id.pipe && t.facing == 5) {
-							if (e.getBounds().intersects(t.getBoundsLeft())) {
-								if (!e.goingUpPipe) {
-									e.goingUpPipe = true;
+					for (EnviromentObject env: gameLogic.handler.enviromentObject) {
+						if (env.getId() == Id.pipe && env.getTypeOfPipe() == TypeOfPipe.horizontalEntrance) {
+							if (e.getBounds().intersects(env.getBoundsLeft())) {
+								if (!e.isGoingUpPipe()) {
+									e.setGoingUpPipe(true);
 									e.setVelY(0);
 								}
-								if (!Main.pipe.isRunning())
-									Main.pipe.play();
-								Main.underworldSong.stop();
+								if (!gameLogic.sounds.pipe.isRunning())
+									gameLogic.sounds.pipe.play();
+								gameLogic.sounds.underworldSong.stop();
 							}
 						}
 					}
-					if (!e.goingUpPipe) {
+					if (!e.isGoingUpPipe()) {
 						e.setVelX(5);
-						e.facing = 1;
-					}*/
+						e.setFacing(Facing.right);
+					}
 					e.setVelX(5);
 					e.setFacing(Facing.right);
 				} else {
 					e.setVelX(0);
 				}
 
-				/*if (keys[KeyEvent.VK_SPACE] && released) {
-					if (Main.tempOfPlayerState == EntityStates.fire) {
+				if (keys[KeyEvent.VK_SPACE] && released) {
+					if (gameLogic.tempOfPlayerState == PlayerStates.fire) {
 						e.createMarioFireball();
 						if (released) {
 							released = false;
 						}
 					}
-				}*/
+				}
 
 				if (keys[KeyEvent.VK_SHIFT]) {
 					if (e.getVelX() == 5) {

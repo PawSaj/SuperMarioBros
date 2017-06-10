@@ -1,8 +1,10 @@
 package com.project.mario.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -15,23 +17,22 @@ import com.project.mario.GameLogic;
  */
 public class Launcher {
 
-	public Button[] buttons;
+	private Button[] buttons;
 	private Image background;
 	private final int fontHeight;
-	private int widthOfWindow, heightOfWindow;
+	private Dimension sizeOfWindow;
 
-	public Launcher(int widthOfWindow, int heightOfWindow, GameLogic gameLogic) {
-		this.widthOfWindow = widthOfWindow;
-		this.heightOfWindow = heightOfWindow;
+	public Launcher(Dimension sizeOfWindow, GameLogic gameLogic) {
+		this.sizeOfWindow = sizeOfWindow;
 		fontHeight = 50;
-		buttons = new Button[2];
-		buttons[0] = new Button(widthOfWindow * 2 / 6, heightOfWindow * 3 / 5, 300, fontHeight,
+		setButtons(new Button[2]);
+		getButtons()[0] = new Button(sizeOfWindow.width * 2 / 6, sizeOfWindow.height * 3 / 5, 300, fontHeight,
 				"START GAME", true, gameLogic);
-		buttons[1] = new Button(widthOfWindow * 2 / 6, heightOfWindow * 3 / 5 + 50, 250, fontHeight,
+		getButtons()[1] = new Button(sizeOfWindow.width * 2 / 6, sizeOfWindow.height * 3 / 5 + 50, 250, fontHeight,
 				"EXIT GAME", false, gameLogic);
 
 		try {
-			background = ImageIO.read(getClass().getResource("/launcher.png"));
+			background = ImageIO.read(new File("./res/launcher.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("background");
@@ -46,11 +47,19 @@ public class Launcher {
 	 */
 	public void render(Graphics g) {
 		g.setColor(Color.GREEN);
-		g.drawImage(background, 0, 0, widthOfWindow + 10, heightOfWindow + 10, null);
+		g.drawImage(background, 0, 0, sizeOfWindow.width + 10, sizeOfWindow.height + 10, null);
 
-		for (int i = 0; i < buttons.length; i++) {
-			if (buttons[i] != null)
-				buttons[i].render(g);
+		for (int i = 0; i < getButtons().length; i++) {
+			if (getButtons()[i] != null)
+				getButtons()[i].render(g);
 		}
+	}
+
+	public Button[] getButtons() {
+		return buttons;
+	}
+
+	public void setButtons(Button[] buttons) {
+		this.buttons = buttons;
 	}
 }

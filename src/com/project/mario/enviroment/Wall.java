@@ -19,15 +19,15 @@ public class Wall extends EnviromentObject {
 	}
 
 	public void render(Graphics g) {
-		/*if (id == Id.wall) {
+		if (id == Id.wall) {
 			if (!destroyed) {
-				g.drawImage(Main.block[9][isUnderground].getBufferedImage(), x, y, width, height, null);
+				g.drawImage(gameLogic.graphics.block[9][isUnderground].getBufferedImage(), x, y, width, height, null);
 			}
 		} else if (id == Id.hardWall) {
-			g.drawImage(Main.block[isUnderground][0].getBufferedImage(), x, y, width, height, null);
+			g.drawImage(gameLogic.graphics.block[isUnderground][0].getBufferedImage(), x, y, width, height, null);
 		} else if (id == Id.trunk) {
-			g.drawImage(Main.block[5][0].getBufferedImage(), x, y, width, height, null);
-		}*/
+			g.drawImage(gameLogic.graphics.block[5][0].getBufferedImage(), x, y, width, height, null);
+		}
 	}
 
 	public void update() {

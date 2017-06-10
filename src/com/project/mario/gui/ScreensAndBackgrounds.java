@@ -1,6 +1,7 @@
 package com.project.mario.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 
 import com.project.mario.GameLogic;
@@ -11,20 +12,19 @@ import com.project.mario.GameLogic;
 public class ScreensAndBackgrounds {
 	private Graphics g;
 	private int tempWidth, tempHeight;
-	private int widthOfWindow, heightOfWindow;
+	private Dimension sizeOfWindow;
 	private GameLogic gameLogic;
 	
 
 
-	public ScreensAndBackgrounds(Graphics g, int widthOfWindow, int heightOfWindow, GameLogic gameLogic) {
+	public ScreensAndBackgrounds(Graphics g, Dimension sizeOfWindow, GameLogic gameLogic) {
 		this.setG(g);
 		tempWidth = 0;
 		tempHeight = 0;
-		this.widthOfWindow = widthOfWindow;
-		this.heightOfWindow = heightOfWindow;
+		this.sizeOfWindow = sizeOfWindow;
 		this.gameLogic = gameLogic;
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, widthOfWindow + 10, heightOfWindow + 10);
+		g.fillRect(0, 0, sizeOfWindow.width + 10, sizeOfWindow.height + 10);
 		
 	}
 	/**
@@ -32,11 +32,11 @@ public class ScreensAndBackgrounds {
 	 */
 	public void deathScreen() {
 		g.setColor(Color.WHITE);
-		g.drawImage(gameLogic.graphics.player[4][0].getBufferedImage(), (widthOfWindow / 2) - 150,
-				(heightOfWindow / 2) - 50, 100, 100, null);
+		g.drawImage(gameLogic.graphics.player[4][0].getBufferedImage(), (sizeOfWindow.width / 2) - 150,
+				(sizeOfWindow.height / 2) - 50, 100, 100, null);
 		g.setFont(gameLogic.graphics.font);
 		g.setFont(g.getFont().deriveFont(100.0f));
-		g.drawString("x" + gameLogic.lives, (widthOfWindow / 2) - 50, (heightOfWindow / 2) + 50);
+		g.drawString("x" + gameLogic.lives, (sizeOfWindow.width / 2) - 50, (sizeOfWindow.height / 2) + 50);
 		writeStats();
 	}
 	/**
@@ -71,7 +71,7 @@ public class ScreensAndBackgrounds {
 	public void drawLevelBackground() {
 		try {
 			g.setColor(Color.BLACK);
-			g.fillRect(0, 0, widthOfWindow + 10, heightOfWindow + 10);
+			g.fillRect(0, 0, sizeOfWindow.width + 10, sizeOfWindow.height + 10);
 			int backgroundWidthForAllLevel = 0;
 			tempWidth = gameLogic.graphics.levelBackgrounds[gameLogic.level].getWidth(null);
 			tempHeight = gameLogic.graphics.levelBackgrounds[gameLogic.level].getHeight(null);
@@ -83,7 +83,7 @@ public class ScreensAndBackgrounds {
 			}
 		} catch (NullPointerException e) {
 			g.setColor(Color.BLACK);
-			g.fillRect(0, 0, widthOfWindow + 10, heightOfWindow + 10);
+			g.fillRect(0, 0, sizeOfWindow.width + 10, sizeOfWindow.height + 10);
 		}
 	}
 
@@ -91,8 +91,8 @@ public class ScreensAndBackgrounds {
 		g.setColor(Color.WHITE);
 		g.setFont(gameLogic.graphics.font);
 		g.setFont(g.getFont().deriveFont(64.0f));
-		int xForString = (widthOfWindow / 2) - 200;
-		g.drawString(str, xForString, (heightOfWindow / 2) + 50);
+		int xForString = (sizeOfWindow.width / 2) - 200;
+		g.drawString(str, xForString, (sizeOfWindow.height / 2) + 50);
 		gameLogic.playing = false;
 	}
 

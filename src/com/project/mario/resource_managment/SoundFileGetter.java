@@ -1,4 +1,4 @@
-package com.project.mario.resource_loaders;
+package com.project.mario.resource_managment;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -12,10 +12,10 @@ import javax.sound.sampled.Clip;
  * Klasa odpowiadaj¹ca za odczytanie dzwiêku oraz jego zarz¹dzanie.
  *
  */
-public class Sound {
+public class SoundFileGetter {
 	private Clip clip;
 
-	public Sound(String path) {
+	public SoundFileGetter(String path) {
 		try {
 			BufferedInputStream myStream = new BufferedInputStream(new FileInputStream(new File(path)));
 			AudioInputStream ais = AudioSystem.getAudioInputStream(myStream);
@@ -24,7 +24,7 @@ public class Sound {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("odczytywanie dzwieku");
+			System.out.println("blad odczytywania dzwieku");
 		}
 	}
 

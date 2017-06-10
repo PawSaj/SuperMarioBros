@@ -1,4 +1,4 @@
-package com.project.mario.gfx;
+package com.project.mario.resource_managment;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

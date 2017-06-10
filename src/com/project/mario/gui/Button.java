@@ -27,7 +27,7 @@ public class Button {
 		this.width = widht;
 		this.height = height;
 		this.label = label;
-		this.selected = selected;
+		this.setSelected(selected);
 		this.gameLogic = gameLogic;
 	}
 
@@ -42,7 +42,7 @@ public class Button {
 		g.setFont(gameLogic.graphics.font);
 		g.setFont(g.getFont().deriveFont((float) height - 20));
 		g.drawString(getLabel(), getX(), getY() + height);
-		if (selected) {
+		if (isSelected()) {
 			g.drawImage(gameLogic.graphics.selectingMushroom.getBufferedImage(), x - 64, y + 16, height - 16, height - 16, null);
 		}
 	}
@@ -101,6 +101,14 @@ public class Button {
 
 	public void setLabel(String label) {
 		this.label = label;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 }

@@ -39,7 +39,7 @@ public class CrashedBlock extends Entity {
 			x += velX;
 			y += velY;
 		}
-		if (jumping && !goingDownPipe && !goingUpPipe) {
+		if (jumping && !isGoingDownPipe() && !isGoingUpPipe()) {
 			gravity -= 0.45;
 			setVelY((int) -gravity);
 			if (gravity <= 0.0) {
@@ -48,7 +48,7 @@ public class CrashedBlock extends Entity {
 			}
 		}
 
-		if (falling && !goingDownPipe && !goingUpPipe) {
+		if (falling && !isGoingDownPipe() && !isGoingUpPipe()) {
 			gravity += 0.45;
 			setVelY((int) gravity);
 		}

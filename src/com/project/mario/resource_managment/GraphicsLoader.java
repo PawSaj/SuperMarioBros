@@ -1,4 +1,4 @@
-package com.project.mario.resource_loaders;
+package com.project.mario.resource_managment;
 
 import java.awt.Font;
 import java.awt.Image;
@@ -8,9 +8,6 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-
-import com.project.mario.gfx.Sprite;
-import com.project.mario.gfx.Spritesheet;
 
 public class GraphicsLoader {
 	public Spritesheet sheet;
@@ -47,6 +44,7 @@ public class GraphicsLoader {
 	public GraphicsLoader() {
 		sheet = new Spritesheet("./res/spritesheet.png");
 		
+		initLevelBackgroundImages();
 		initLevelImages();
 		initEntityElements();
 		initEnviromentElements();
@@ -57,6 +55,25 @@ public class GraphicsLoader {
 		
 		
 		
+	}
+	
+	private void initLevelBackgroundImages() {
+		File[] levelFiles = graphicFilesArray("background");
+
+		levelBackgrounds = new BufferedImage[levelFiles.length * 2];
+		int temp;
+
+		for (int i = 0; i < levelFiles.length; i++) {
+			temp = getNumberFromFileName(levelFiles[i].getPath());
+			if (temp < levelFiles.length + 1) {
+				try {
+					levelBackgrounds[temp - 1] = ImageIO.read(new File("./res/" + levelFiles[i].getName()));
+				} catch (IOException e) {
+					System.out.println("blad odczytywania tla");
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	private void initLauncherElements() {
@@ -110,7 +127,7 @@ public class GraphicsLoader {
 				try {
 					levelImages[temp - 1] = ImageIO.read(new File("./res/" + levelFiles[i].getName()));
 				} catch (IOException e) {
-					System.out.println("odczytywanie level'u");
+					System.out.println("blad odczytywania level'u");
 					e.printStackTrace();
 				}
 			}

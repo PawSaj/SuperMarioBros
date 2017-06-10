@@ -1,11 +1,17 @@
 package com.project.mario;
 
+import java.awt.Dimension;
+import java.awt.Rectangle;
+
+import com.project.mario.entity.Entity;
+import com.project.mario.enums.Id;
 import com.project.mario.enums.PlayerStates;
-import com.project.mario.gui.Launcher;
-import com.project.mario.resource_loaders.GraphicsLoader;
-import com.project.mario.resource_loaders.SoundsLoader;
+import com.project.mario.resource_managment.GraphicsLoader;
+import com.project.mario.resource_managment.SoundsLoader;
 
 public class GameLogic {
+	private Dimension sizeOfWindow;
+	
 	public PlayerStates tempOfPlayerState;
 	
 	public int level;
@@ -21,22 +27,21 @@ public class GameLogic {
 
 	public Handler handler;
 	public Camera cam;
-	public Launcher launcher;
-	//public MouseInput mouseInput;
 
 	public SoundsLoader sounds;
 	public GraphicsLoader graphics;
 	
 	
-	public GameLogic() {
-		handler = new Handler();
+	public GameLogic(Dimension sizeOfWindow) {
+		this.setSizeOfWindow(sizeOfWindow);
+		handler = new Handler(this);
+		cam = new Camera(this);
 		sounds = new SoundsLoader();
 		graphics = new GraphicsLoader();
 		setInitialValuesOfVariables();
 	}
 	
 	private void setInitialValuesOfVariables() {
-		handler = new Handler();
 
 		level = 0;
 		lives = 3;
@@ -49,6 +54,53 @@ public class GameLogic {
 		playing = false;
 
 		tempOfPlayerState = PlayerStates.small;
+	}
+	
+	/**
+	 * Metoda s³u¿¹ca do zaminy poziomu rozgrywki
+	 * 
+	 */
+	public void switchLevel() {
+		level++;
+		showDeathScreen = true;
+		tempOfCoins = coins;
+		handler.clearLevel();
+		try {
+			handler.createLevel(graphics.levelImages[level]);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			win = true;
+			showDeathScreen = true;
+			System.out.println("zakonczenie gry");
+			level = 0;
+		}
+		cam.resetCamera();
+
+	}
+	
+	/**
+	 * Mateoda pozwalaj¹ca ograniczyæ renderowanie elementów do wy³¹cznie
+	 * widocznych w oknie
+	 * 
+	 * @return Obszar widoczny z poziomu okna, gdy gracz nie ¿yje musi zwracaæ
+	 *         dowolny, niezerowy obszar nie szerszy ni¿ 100, zaczynaj¹cy siê w
+	 *         pocz¹tku uk³adu wspó³rzêdnych
+	 */
+
+	public Rectangle getVisibleField() {
+		for (Entity e : handler.entity) {
+			if (e.getId() == Id.player)
+				return new Rectangle(-cam.getX() - 64, -cam.getY() - 64, getSizeOfWindow().width + 128, getSizeOfWindow().height + 128);
+		}
+
+		return new Rectangle(0, 0, 10, 10);
+	}
+
+	public Dimension getSizeOfWindow() {
+		return sizeOfWindow;
+	}
+
+	public void setSizeOfWindow(Dimension sizeOfWindow) {
+		this.sizeOfWindow = sizeOfWindow;
 	}
 	
 	

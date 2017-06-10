@@ -5,13 +5,24 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.event.MouseInputListener;
 
+import com.project.mario.GameLogic;
+import com.project.mario.gui.Button;
+
 /**
  * Klasa s³u¿¹ca do obs³ugi myszy
  *
  */
 public class MouseInput implements MouseInputListener, MouseMotionListener {
 
-	public int x, y;
+	private int x, y;
+	private Button[] buttons;
+	private GameLogic gameLogic;
+
+	public MouseInput(GameLogic gameLogic, Button[] buttons) {
+		super();
+		this.gameLogic = gameLogic;
+		this.buttons = buttons;
+	}
 
 	public void mouseClicked(MouseEvent e) {
 
@@ -26,16 +37,16 @@ public class MouseInput implements MouseInputListener, MouseMotionListener {
 	}
 
 	public void mousePressed(MouseEvent e) {
-		/*if (!Main.isPlaying) {
-			for (int i = 0; i < Main.launcher.buttons.length; i++) {
-				Button button = Main.launcher.buttons[i];
+		if (!gameLogic.playing) {
+			for (int i = 0; i < buttons.length; i++) {
+				Button button = buttons[i];
 
 				if (x >= button.getX() && x <= button.getX() + button.getWidht() && y >= button.getY()
 						&& y <= button.getY() + button.getHeight()) {
 					button.triggerEvent();
 				}
 			}
-		}*/
+		}
 	}
 
 	public void mouseReleased(MouseEvent e) {

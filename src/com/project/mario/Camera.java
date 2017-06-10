@@ -11,12 +11,9 @@ import com.project.mario.enums.PlayerStates;
 public class Camera {
 
 	private int x, y;
-	private int widthOfWindow, heightOfWindow;
 	private GameLogic gameLogic;
 
-	public Camera(int widthOfWindow, int heightOfWindow, GameLogic gameLogic) {
-		this.widthOfWindow = widthOfWindow;
-		this.heightOfWindow = heightOfWindow;
+	public Camera(GameLogic gameLogic) {
 		this.gameLogic = gameLogic;
 		this.x = 0;
 		this.y = 10;
@@ -30,8 +27,8 @@ public class Camera {
 	 */
 	public void update(Entity player) {
 		if (gameLogic.tempOfPlayerState != PlayerStates.dead) {
-			int tempOfPlayerX = -player.getX() + widthOfWindow / 2;
-			int tempOfPlayerY = -player.getY() + heightOfWindow * 2 / 3;
+			int tempOfPlayerX = -player.getX() + gameLogic.getSizeOfWindow().width / 2;
+			int tempOfPlayerY = -player.getY() + gameLogic.getSizeOfWindow().height * 2 / 3;
 			if (x > tempOfPlayerX) {
 				x = tempOfPlayerX;
 			}

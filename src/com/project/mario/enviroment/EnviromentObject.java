@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import com.project.mario.GameLogic;
 import com.project.mario.entity.CrashedBlock;
 import com.project.mario.enums.PlayerStates;
+import com.project.mario.enums.TypeOfPipe;
 import com.project.mario.enums.Facing;
 import com.project.mario.enums.Id;
 
@@ -21,9 +22,14 @@ public abstract class EnviromentObject {
 	protected int jumpingAnimationSpeed;
 	protected boolean jumpedBlock;
 	protected int tempOfY;
+	protected TypeOfPipe typeOfPipe;
 	
+	protected int frame;
+	protected int frameDelay;
 	
-	private GameLogic gameLogic;
+	protected int isUnderground;
+	
+	protected GameLogic gameLogic;
 	
 	public EnviromentObject(int x, int y, int width, int height, Id id,  GameLogic gameLogic) {
 		super();
@@ -33,6 +39,46 @@ public abstract class EnviromentObject {
 		this.height = height;
 		this.id = id;
 		this.gameLogic = gameLogic;
+		
+		activated = false;
+		frame = 0;
+		frameDelay = 0;
+		tempOfY = y;
+
+		jumpingAnimationSpeed = 8;
+		
+		jumpedBlock = true;
+		
+		if (y > 14 * 64 || gameLogic.level % 2 == 1)
+			isUnderground = 0;
+		else
+			isUnderground = 1;
+	}
+	
+	public EnviromentObject(int x, int y, int width, int height, Id id,  GameLogic gameLogic, TypeOfPipe typeOfPipe) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.id = id;
+		this.gameLogic = gameLogic;
+		
+		activated = false;
+		frame = 0;
+		frameDelay = 0;
+		tempOfY = y;
+
+		jumpingAnimationSpeed = 8;
+		
+		jumpedBlock = true;
+		
+		if (y > 14 * 64 || gameLogic.level % 2 == 1)
+			isUnderground = 0;
+		else
+			isUnderground = 1;
+		
+		this.typeOfPipe = typeOfPipe;
 	}
 	
 	public abstract void render(Graphics g);
@@ -193,6 +239,34 @@ public abstract class EnviromentObject {
 
 	public void setActivated(boolean activated) {
 		this.activated = activated;
+	}
+
+	public int getVelX() {
+		return velX;
+	}
+
+	public void setVelX(int velX) {
+		this.velX = velX;
+	}
+
+	public int getVelY() {
+		return velY;
+	}
+
+	public void setVelY(int velY) {
+		this.velY = velY;
+	}
+
+	public TypeOfPipe getTypeOfPipe() {
+		return typeOfPipe;
+	}
+
+	public int getIsUnderground() {
+		return isUnderground;
+	}
+
+	public void setIsUnderground(int isUnderground) {
+		this.isUnderground = isUnderground;
 	}
 
 }
