@@ -1,5 +1,11 @@
 package com.project.mario.enums;
 
+/**
+ * Enumeraty okreœlaj¹ce typ obiekty ze œwiata gry.
+ * 
+ * @author Pawe³ Sajnóg
+ *
+ */
 public enum Id {
 	player, 			wall, 				mushroom, 		goomba,
 	powerUpBlock, 		pipe, 				coin, 			bowser, 

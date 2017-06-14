@@ -21,7 +21,7 @@ public class FireBlock extends EnviromentObject {
 		super(x, y, width, height, id, gameLogic);
 		random = new Random();
 		boolean temp = random.nextBoolean();
-		if(temp) {
+		if (temp) {
 			facing = Facing.left;
 		} else {
 			facing = Facing.right;
@@ -32,16 +32,27 @@ public class FireBlock extends EnviromentObject {
 		for (int i = 0; i < 6; i++) {
 			int positionX = (int) ((radius * i / 6) + x + 32);
 			int positionY = (int) ((radius * i / 6) + y + 32);
-			gameLogic.handler.addEnviromentObject(new Fireball(positionX, positionY, 32, 32, Id.fireball, gameLogic, facing, (radius * i / 6),
-					x + 16, y + 16));
+			gameLogic.handler.addEnviromentObject(new Fireball(positionX, positionY, 32, 32, Id.fireball, gameLogic,
+					facing, (radius * i / 6), x + 16, y + 16));
 		}
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.project.mario.enviroment.EnviromentObject#render(java.awt.Graphics)
+	 */
 	public void render(Graphics g) {
 		g.drawImage(gameLogic.graphics.block[6][1].getBufferedImage(), x, y, width, height, null);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.enviroment.EnviromentObject#update()
+	 */
 	public void update() {
 		;
 	}

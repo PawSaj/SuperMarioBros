@@ -4,16 +4,21 @@ import java.awt.Graphics;
 
 import com.project.mario.GameLogic;
 import com.project.mario.enums.Id;
+
 /**
  * Klasa generuj¹ca monety.
- *
+ * 
+ * 
  */
 public class Coin extends Entity {
+
 	/**
 	 * @param frameGoldDelay
 	 *            Parametr s³u¿¹cy do wyd³u¿ania klatki animacji monety
+	 *            obracaj¹cej siê z bloku
+	 * @param fromBlock
+	 *            Parametr okreœlaj¹cy czy moneta jest z bloku czy wolnostoj¹ca
 	 */
-
 	private int frameGoldDelay;
 	public boolean fromBlock;
 	private int coinFrames;
@@ -41,6 +46,11 @@ public class Coin extends Entity {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.entity.Entity#render(java.awt.Graphics)
+	 */
 	public void render(Graphics g) {
 		if (!fromBlock) {
 			g.drawImage(gameLogic.graphics.coin[frame].getBufferedImage(), x, y, width, height, null);
@@ -50,6 +60,11 @@ public class Coin extends Entity {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.entity.Entity#update()
+	 */
 	public void update() {
 		y += velY;
 
@@ -88,6 +103,11 @@ public class Coin extends Entity {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.entity.Entity#entityDieAnimation()
+	 */
 	public void entityDieAnimation() {
 		;
 	}

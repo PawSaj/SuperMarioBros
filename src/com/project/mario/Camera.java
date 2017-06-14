@@ -4,7 +4,10 @@ import com.project.mario.entity.Entity;
 import com.project.mario.enums.PlayerStates;
 
 /**
- * Klasa odpowiadaj¹ca za pod¹¿anie za graczem
+ * Klasa odpowiadaj¹ca za pod¹¿aniem obrazu za graczem, wyznacza po³o¿enie
+ * kamery
+ * 
+ * 
  * 
  *
  */
@@ -20,7 +23,7 @@ public class Camera {
 	}
 
 	/**
-	 * Metoda wyznaczaj¹ca ustalaj¹ca wartoœci zmiennych dla kolejnej klatki gry
+	 * Metoda wyznaczaj¹ca wartoœci zmiennych kamery dla kolejnej klatki gry
 	 * 
 	 * @param player
 	 *            obiekt bêd¹cy graczem

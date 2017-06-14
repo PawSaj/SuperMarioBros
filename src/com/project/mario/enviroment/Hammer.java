@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import com.project.mario.GameLogic;
 import com.project.mario.enums.Id;
+
 /**
  * Klasa generuj¹ca element umo¿liwiaj¹cy zabicie boss'a - bowser'a
  *
@@ -22,21 +23,32 @@ public class Hammer extends EnviromentObject {
 		bridgeDestroyDelay = 0;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.project.mario.enviroment.EnviromentObject#render(java.awt.Graphics)
+	 */
 	public void render(Graphics g) {
 		g.drawImage(gameLogic.graphics.hammer.getBufferedImage(), x, y, width, height, null);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.enviroment.EnviromentObject#update()
+	 */
 	public void update() {
 		bridgeDestroyDelay++;
 		bridgeDestroyDelay %= 10;
 		if (activated && bridgeDestroyDelay == 0) {
-			for (EnviromentObject env: gameLogic.handler.enviromentObject) {
+			for (EnviromentObject env : gameLogic.handler.enviromentObject) {
 				if (env.getId() == Id.bowserCastelBridge) {
-					env.die();
+					env.destroy();
 				}
 			}
 			gameLogic.sounds.bowserFallSound.play();
-			die();
+			destroy();
 		}
 	}
 

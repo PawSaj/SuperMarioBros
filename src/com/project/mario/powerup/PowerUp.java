@@ -7,6 +7,7 @@ import com.project.mario.entity.Entity;
 import com.project.mario.enums.Id;
 import com.project.mario.enums.PlayerStates;
 import com.project.mario.enviroment.EnviromentObject;
+
 /**
  * Klasa generuj¹ca ulepszenia gracza.
  *
@@ -30,6 +31,11 @@ public class PowerUp extends Entity {
 		gameLogic.sounds.powerUpAppear.play();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.entity.Entity#render(java.awt.Graphics)
+	 */
 	public void render(Graphics g) {
 		if (enviromentObject.isJumpedBlock()) {
 			if (id == Id.mushroom) {
@@ -40,6 +46,11 @@ public class PowerUp extends Entity {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.entity.Entity#update()
+	 */
 	public void update() {
 		if (enviromentObject.isJumpedBlock()) {
 			if (gameLogic.tempOfPlayerState != PlayerStates.dead) {
@@ -55,7 +66,7 @@ public class PowerUp extends Entity {
 						velX = 2;
 				}
 			} else {
-				for (EnviromentObject env: gameLogic.handler.enviromentObject) {
+				for (EnviromentObject env : gameLogic.handler.enviromentObject) {
 					if (env.getId() != Id.coin) {
 						if (getBoundsBottom().intersects(env.getBounds())) {
 							setVelY(0);
@@ -97,6 +108,11 @@ public class PowerUp extends Entity {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.entity.Entity#entityDieAnimation()
+	 */
 	public void entityDieAnimation() {
 		;
 	}

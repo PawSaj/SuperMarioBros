@@ -13,13 +13,18 @@ import com.project.mario.powerup.Starman;
  * klasa odpowiadaj¹ca za generowanie bloków zawieraj¹cych bonusy lub monety.
  * Generuje zarówno ukryte (wygl¹daj¹ce jak blok œciany) oraz widoczne bloki z
  * bonusem.
+ ** 
+ * @author Pawe³ Sajnóg
  *
  */
 public class BonusBlock extends EnviromentObject {
+
 	/**
 	 * @param gettedPlayerState
 	 *            zmienna pobieraj¹ca statu gracza w momencie, gdy uderza on o
 	 *            ten element, by wygenerowaæ odpowiednie ulepszenie
+	 * @param hiddenCoinsTime
+	 *            Okreœla jak d³ugo bêdzie mo¿na "wybijac" ukryte money z bloku
 	 */
 	private int frame;
 	private int frameDelay;
@@ -45,6 +50,12 @@ public class BonusBlock extends EnviromentObject {
 		gettedPlayerState = null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.project.mario.enviroment.EnviromentObject#render(java.awt.Graphics)
+	 */
 	public void render(Graphics g) {
 		if (!activated) {
 			if (id == Id.powerUpBlock || id == Id.coinBlock)
@@ -56,6 +67,11 @@ public class BonusBlock extends EnviromentObject {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.enviroment.EnviromentObject#update()
+	 */
 	public void update() {
 
 		if (startCountingHiddenCoinsTime && hiddenCoinsTime > 0) {

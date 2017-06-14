@@ -25,10 +25,16 @@ public class MarioFireball extends Entity {
 		FRAMES = 4;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.project.mario.entity.Entity#render(java.awt.Graphics)
+	 */
 	public void render(Graphics g) {
 		g.drawImage(gameLogic.graphics.marioFireball[frame].getBufferedImage(), x, y, width, height, null);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.project.mario.entity.Entity#update()
+	 */
 	public void update() {
 		if (gameLogic.tempOfPlayerState != PlayerStates.dead) {
 			x += velX;
@@ -83,6 +89,9 @@ public class MarioFireball extends Entity {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.project.mario.entity.Entity#entityDieAnimation()
+	 */
 	public void entityDieAnimation() {
 		die();
 	}

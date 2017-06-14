@@ -16,10 +16,21 @@ public class TeleportPlace extends EnviromentObject {
 		super(x, y, width, height, id, gameLogic);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.project.mario.enviroment.EnviromentObject#render(java.awt.Graphics)
+	 */
 	public void render(Graphics g) {
 		;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.enviroment.EnviromentObject#update()
+	 */
 	public void update() {
 		;
 	}

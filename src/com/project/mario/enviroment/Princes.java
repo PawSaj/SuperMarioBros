@@ -15,10 +15,16 @@ public class Princes extends EnviromentObject{
 		activated = false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.project.mario.enviroment.EnviromentObject#render(java.awt.Graphics)
+	 */
 	public void render(Graphics g) {
 		g.drawImage(gameLogic.graphics.princes.getBufferedImage(), x, y, width, height, null);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.project.mario.enviroment.EnviromentObject#update()
+	 */
 	public void update() {
 		if(activated) {
 			gameLogic.switchLevel();

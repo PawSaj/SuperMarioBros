@@ -8,6 +8,7 @@ import com.project.mario.entity.Entity;
 import com.project.mario.enums.Id;
 import com.project.mario.enums.PlayerStates;
 import com.project.mario.enviroment.EnviromentObject;
+
 /**
  * Klasa generuj¹ca element daj¹cy graczowi niezniszczalnoœæ.
  *
@@ -39,6 +40,9 @@ public class Starman extends Entity {
 		gameLogic.sounds.powerUpAppear.play();
 	}
 
+	/**
+	 * Metoda generuj¹ca skoki gwiazdy w losowym momencie.
+	 */
 	private void generateRandomJumping() {
 		if (jumpingDelay <= 0 && !jumping && isGround()) {
 			jumping = true;
@@ -49,11 +53,21 @@ public class Starman extends Entity {
 		jumpingDelay--;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.entity.Entity#render(java.awt.Graphics)
+	 */
 	public void render(Graphics g) {
 		if (enviromentObject.isJumpedBlock())
 			g.drawImage(gameLogic.graphics.starman[frame].getBufferedImage(), x, y, width, height, null);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.entity.Entity#update()
+	 */
 	public void update() {
 		if (enviromentObject.isJumpedBlock()) {
 			if (gameLogic.tempOfPlayerState != PlayerStates.dead) {
@@ -71,7 +85,7 @@ public class Starman extends Entity {
 					velX = 2;
 				}
 			} else {
-				for (EnviromentObject env: gameLogic.handler.enviromentObject) {
+				for (EnviromentObject env : gameLogic.handler.enviromentObject) {
 					if (env.getId() != Id.coin) {
 
 						if (getBoundsBottom().intersects(env.getBounds())) {
@@ -129,6 +143,11 @@ public class Starman extends Entity {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.entity.Entity#entityDieAnimation()
+	 */
 	public void entityDieAnimation() {
 		;
 	}

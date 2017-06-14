@@ -1,6 +1,8 @@
 package com.project.mario.enums;
+
 /**
- * Enumerat g³ównie wykorzystywany przez gracza. Pozosta³e stwory wykorzystuj¹ jedynie status dead.
+ * Enumerat g³ównie wykorzystywany przez gracza, do okreœlenia jego stanu.
+ * Pozosta³e stwory wykorzystuj¹ jedynie status dead.
  *
  */
 public enum PlayerStates {

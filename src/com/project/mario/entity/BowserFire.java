@@ -10,7 +10,8 @@ import com.project.mario.enums.PlayerStates;
 
 /**
  * Klasa generuj¹ca p³omienie tworzone przez Bowser'a.
- *
+ * 
+ * 
  */
 public class BowserFire extends Entity {
 	/**
@@ -33,6 +34,11 @@ public class BowserFire extends Entity {
 		firePositionShift = random.nextInt(64);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.entity.Entity#render(java.awt.Graphics)
+	 */
 	public void render(Graphics g) {
 		if (facing == Facing.left)
 			g.drawImage(gameLogic.graphics.bowserFire[frame].getBufferedImage(), x, y, width, height, null);
@@ -40,6 +46,11 @@ public class BowserFire extends Entity {
 			g.drawImage(gameLogic.graphics.bowserFire[frame + 2].getBufferedImage(), x, y, width, height, null);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.entity.Entity#update()
+	 */
 	public void update() {
 		if (gameLogic.tempOfPlayerState != PlayerStates.dead) {
 			if (facing == Facing.left)
@@ -65,6 +76,11 @@ public class BowserFire extends Entity {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.entity.Entity#entityDieAnimation()
+	 */
 	public void entityDieAnimation() {
 		;
 	}

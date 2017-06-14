@@ -5,8 +5,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 
 import com.project.mario.GameLogic;
+
 /**
- * Klasa generuj¹ca dodatkowe ekrany w rozgrywce oraz t³a poszczególnych poziomów
+ * Klasa generuj¹ca dodatkowe ekrany w rozgrywce oraz t³a poszczególnych
+ * poziomów
  *
  */
 public class ScreensAndBackgrounds {
@@ -14,8 +16,6 @@ public class ScreensAndBackgrounds {
 	private int tempWidth, tempHeight;
 	private Dimension sizeOfWindow;
 	private GameLogic gameLogic;
-	
-
 
 	public ScreensAndBackgrounds(Graphics g, Dimension sizeOfWindow, GameLogic gameLogic) {
 		this.setG(g);
@@ -25,8 +25,9 @@ public class ScreensAndBackgrounds {
 		this.gameLogic = gameLogic;
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, sizeOfWindow.width + 10, sizeOfWindow.height + 10);
-		
+
 	}
+
 	/**
 	 * Metoda renderuj¹ca ekran œmierci gracza
 	 */
@@ -39,12 +40,14 @@ public class ScreensAndBackgrounds {
 		g.drawString("x" + gameLogic.lives, (sizeOfWindow.width / 2) - 50, (sizeOfWindow.height / 2) + 50);
 		writeStats();
 	}
+
 	/**
 	 * Metoda renderuj¹ca ekran przegranej
 	 */
 	public void gameOverScreen() {
 		endingScreen("GAME OVER");
 	}
+
 	/**
 	 * Metoda renderuj¹ca ekran wygranej
 	 */
@@ -53,6 +56,7 @@ public class ScreensAndBackgrounds {
 			gameLogic.sounds.worldClear.play();
 		endingScreen("YOU WIN!");
 	}
+
 	/**
 	 * Metoda renderuj¹ca informacje o osi¹gach gracza
 	 */
@@ -77,8 +81,8 @@ public class ScreensAndBackgrounds {
 			tempHeight = gameLogic.graphics.levelBackgrounds[gameLogic.level].getHeight(null);
 			while (backgroundWidthForAllLevel < gameLogic.graphics.levelImages[gameLogic.level].getWidth() * 64
 					&& backgroundWidthForAllLevel < tempWidth * 5) {
-				g.drawImage(gameLogic.graphics.levelBackgrounds[gameLogic.level], backgroundWidthForAllLevel, -10, tempWidth, tempHeight,
-						null);
+				g.drawImage(gameLogic.graphics.levelBackgrounds[gameLogic.level], backgroundWidthForAllLevel, -10,
+						tempWidth, tempHeight, null);
 				backgroundWidthForAllLevel += tempWidth;
 			}
 		} catch (NullPointerException e) {
@@ -87,6 +91,12 @@ public class ScreensAndBackgrounds {
 		}
 	}
 
+	/**
+	 * Metoda wyœwietlaj¹ca zadany String na ekranie.
+	 * 
+	 * @param str
+	 *            String do wyœwietlenia.
+	 */
 	private void endingScreen(String str) {
 		g.setColor(Color.WHITE);
 		g.setFont(gameLogic.graphics.font);

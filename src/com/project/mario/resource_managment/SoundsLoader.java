@@ -1,5 +1,11 @@
 package com.project.mario.resource_managment;
 
+/**
+ * Klasa ³aduj¹ca i przechowywuj¹ca pliki diêków gry.
+ * 
+ * @author Pawe³ Sajnóg
+ *
+ */
 public class SoundsLoader {
 	public SoundFileGetter jumpSmallSound;
 	public SoundFileGetter jumpBigSound;
@@ -22,11 +28,14 @@ public class SoundsLoader {
 	public SoundFileGetter gameOverSound;
 	public SoundFileGetter bowserFireSound;
 	public SoundFileGetter bowserFallSound;
-	
+
 	public SoundsLoader() {
 		initSounds();
 	}
-	
+
+	/**
+	 * Metoda inicjuj¹ca zmienne dzwiêków
+	 */
 	private void initSounds() {
 		jumpSmallSound = new SoundFileGetter("./res/smb_jumpsmall.wav");
 		jumpBigSound = new SoundFileGetter("./res/smb_jumpbig.wav");

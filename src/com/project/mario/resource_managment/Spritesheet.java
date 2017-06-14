@@ -20,7 +20,7 @@ public class Spritesheet {
 		} catch (IOException e) {
 			System.out.println("Problem z siatk¹ grafiki");
 			e.printStackTrace();
-			
+
 		}
 	}
 
@@ -36,6 +36,7 @@ public class Spritesheet {
 	public BufferedImage getSprite1(int x, int y) {
 		return sheet.getSubimage(x * 64 - 64, y * 64 - 64, 64, 64);
 	}
+
 	/**
 	 * 
 	 * @param x
@@ -48,6 +49,7 @@ public class Spritesheet {
 	public BufferedImage getSprite2(int x, int y) {
 		return sheet.getSubimage(x * 64 - 64, y * 64 - 64, 64, 128);
 	}
+
 	/**
 	 * 
 	 * @param x
@@ -60,6 +62,7 @@ public class Spritesheet {
 	public BufferedImage getSprite3(int x, int y) {
 		return sheet.getSubimage(x * 64 - 64, y * 64 - 64, 128, 64);
 	}
+
 	/**
 	 * 
 	 * @param x
@@ -72,6 +75,7 @@ public class Spritesheet {
 	public BufferedImage getSprite4(int x, int y) {
 		return sheet.getSubimage(x * 64 - 64, y * 64 - 64, 128, 128);
 	}
+
 	/**
 	 * 
 	 * @param x
@@ -84,6 +88,7 @@ public class Spritesheet {
 	public BufferedImage getSprite5(int x, int y) {
 		return sheet.getSubimage(x * 64 - 64, y * 64 - 16, 48, 16);
 	}
+
 	/**
 	 * 
 	 * @param x

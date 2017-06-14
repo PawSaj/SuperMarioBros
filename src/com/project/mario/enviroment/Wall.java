@@ -3,9 +3,12 @@ package com.project.mario.enviroment;
 import java.awt.Graphics;
 
 import com.project.mario.GameLogic;
+import com.project.mario.entity.CrashedBlock;
 import com.project.mario.enums.Id;
+
 /**
- * Klasa generuj¹ca mury. Kiedy jest niszczona tworzy elementy CrashedBlock
+ * Klasa generuj¹ca mury. Kiedy jest niszczona tworzy elementy
+ * {@link CrashedBlock}
  *
  */
 public class Wall extends EnviromentObject {
@@ -18,6 +21,12 @@ public class Wall extends EnviromentObject {
 		timeToDestroy = 30;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.project.mario.enviroment.EnviromentObject#render(java.awt.Graphics)
+	 */
 	public void render(Graphics g) {
 		if (id == Id.wall) {
 			if (!destroyed) {
@@ -30,6 +39,11 @@ public class Wall extends EnviromentObject {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.enviroment.EnviromentObject#update()
+	 */
 	public void update() {
 		if ((activated || !jumpedBlock) && !destroyed)
 			jumpedBlock = blockHitAnimation();
@@ -43,7 +57,7 @@ public class Wall extends EnviromentObject {
 		}
 
 		if (timeToDestroy == 0)
-			die();
+			destroy();
 	}
 
 }

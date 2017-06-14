@@ -9,11 +9,19 @@ import com.project.mario.enums.PlayerStates;
 import com.project.mario.resource_managment.GraphicsLoader;
 import com.project.mario.resource_managment.SoundsLoader;
 
+/**
+ * Klasa odpowiadaj¹ca za warstwê logiczn¹ gry. Poza parametrami logicznymi jak
+ * nr poziomu, iloœæ ¿yæ czy zebranych monet klasa posiada te¿ parametry bêd¹ce
+ * zbiorczymi obiektami wszytskich elementów graficznych i diêkowych
+ * 
+ * @author Pawe³ Sajnóg
+ *
+ */
 public class GameLogic {
 	private Dimension sizeOfWindow;
-	
+
 	public PlayerStates tempOfPlayerState;
-	
+
 	public int level;
 	public int lives;
 	public int coins;
@@ -21,7 +29,7 @@ public class GameLogic {
 	public boolean win;
 
 	public boolean showDeathScreen;
-	public int deathScreenTime;
+	public int deathScreenShowTime;
 	public boolean gameOverScreen;
 	public boolean playing;
 
@@ -30,8 +38,7 @@ public class GameLogic {
 
 	public SoundsLoader sounds;
 	public GraphicsLoader graphics;
-	
-	
+
 	public GameLogic(Dimension sizeOfWindow) {
 		this.setSizeOfWindow(sizeOfWindow);
 		handler = new Handler(this);
@@ -40,7 +47,10 @@ public class GameLogic {
 		graphics = new GraphicsLoader();
 		setInitialValuesOfVariables();
 	}
-	
+
+	/**
+	 * Metoda inicjuj¹ca wartoœci parametrów logicznych gry.
+	 */
 	private void setInitialValuesOfVariables() {
 
 		level = 0;
@@ -49,13 +59,13 @@ public class GameLogic {
 		tempOfCoins = 0;
 
 		showDeathScreen = true;
-		deathScreenTime = 0;
+		deathScreenShowTime = 0;
 		gameOverScreen = false;
 		playing = false;
 
 		tempOfPlayerState = PlayerStates.small;
 	}
-	
+
 	/**
 	 * Metoda s³u¿¹ca do zaminy poziomu rozgrywki
 	 * 
@@ -76,7 +86,7 @@ public class GameLogic {
 		cam.resetCamera();
 
 	}
-	
+
 	/**
 	 * Mateoda pozwalaj¹ca ograniczyæ renderowanie elementów do wy³¹cznie
 	 * widocznych w oknie
@@ -89,7 +99,8 @@ public class GameLogic {
 	public Rectangle getVisibleField() {
 		for (Entity e : handler.entity) {
 			if (e.getId() == Id.player)
-				return new Rectangle(-cam.getX() - 64, -cam.getY() - 64, getSizeOfWindow().width + 128, getSizeOfWindow().height + 128);
+				return new Rectangle(-cam.getX() - 64, -cam.getY() - 64, getSizeOfWindow().width + 128,
+						getSizeOfWindow().height + 128);
 		}
 
 		return new Rectangle(0, 0, 10, 10);
@@ -102,6 +113,5 @@ public class GameLogic {
 	public void setSizeOfWindow(Dimension sizeOfWindow) {
 		this.sizeOfWindow = sizeOfWindow;
 	}
-	
-	
+
 }

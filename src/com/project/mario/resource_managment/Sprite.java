@@ -27,11 +27,11 @@ public class Sprite {
 			image = sheet.getSprite6(x, y); // 64x96
 
 	}
-	
+
 	/**
 	 * Metoda zwracaj¹ca grafikê typu BufferedImage
-	 * @return
-	 * Pobrany fragment grafiki typu BufferedImage
+	 * 
+	 * @return Pobrany fragment grafiki typu BufferedImage
 	 */
 
 	public BufferedImage getBufferedImage() {

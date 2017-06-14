@@ -4,13 +4,13 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.project.mario.entity.Bowser;
 import com.project.mario.entity.Coin;
 import com.project.mario.entity.Entity;
-import com.project.mario.entity.Goomba;
-import com.project.mario.entity.KoopaTroopa;
-import com.project.mario.entity.PiranhaPlant;
-import com.project.mario.entity.Player;
+import com.project.mario.entity.mob.Bowser;
+import com.project.mario.entity.mob.Goomba;
+import com.project.mario.entity.mob.KoopaTroopa;
+import com.project.mario.entity.mob.PiranhaPlant;
+import com.project.mario.entity.mob.Player;
 import com.project.mario.enums.Facing;
 import com.project.mario.enums.Id;
 import com.project.mario.enums.PlayerStates;
@@ -27,6 +27,13 @@ import com.project.mario.enviroment.Princes;
 import com.project.mario.enviroment.TeleportPlace;
 import com.project.mario.enviroment.Wall;
 
+/**
+ * Klasa odpowiedzialna za stworzenie i wyrenderowanie wszystkich obiektów gry.
+ * W czasie dzia³ania gry wywo³uje kolejny krok dla ka¿dego elementu
+ * 
+ * @author Pawe³ Sajnóg
+ *
+ */
 public class Handler {
 	private GameLogic gameLogic;
 	public CopyOnWriteArrayList<Entity> entity;
@@ -38,6 +45,20 @@ public class Handler {
 		this.enviromentObject = new CopyOnWriteArrayList<EnviromentObject>();
 	}
 
+	/**
+	 * Metoda renderuj¹ca wszystkie elementy gry. S¹ one renderowane fazowo w
+	 * kolejnoœci jakiej maj¹ siê wyœwietlaæ i ew. nachodziæ na siebie (który
+	 * jest wtedy widoczny). Na pierwszym planie s¹ "fireballe" strzelane przez
+	 * mario, potem s¹ elementy takie jak zniszczony blok, moneta wyskakuj¹ca z
+	 * bloku oraz martwy gracz. Nastêpnie takie rzeczy jak ruroci¹gi,
+	 * ksiê¿niczka m³ot spustowy mostu zabijaj¹cego Bowsera, ziemia, dalej jest
+	 * wyœwietlany gracz, potem na kolejnym planie s¹ mniej w¹zne elementy jak
+	 * flaga, zamek, czy pnie (podstawy drzew z 3 poziomu). Na samym koñcy s¹
+	 * zwykli przeciwnicy, monety, p³omienie Bowsera.
+	 * 
+	 * @param g
+	 *            przekazany parametr grafiki danego okna
+	 */
 	public void render(Graphics g) {
 		for (Entity e : entity) {
 			if (gameLogic.getVisibleField() != null && e.getBounds().intersects(gameLogic.getVisibleField()))
@@ -48,8 +69,7 @@ public class Handler {
 
 		for (EnviromentObject env : enviromentObject) {
 			if (gameLogic.getVisibleField() != null && env.getBounds().intersects(gameLogic.getVisibleField()))
-				if (env.getId() == Id.flag || env.getId() == Id.piranhaPlant || env.getId() == Id.castel
-						|| env.getId() == Id.trunk)
+				if (env.getId() == Id.flag || env.getId() == Id.castel || env.getId() == Id.trunk)
 					env.render(g);
 		}
 
@@ -78,32 +98,59 @@ public class Handler {
 		}
 	}
 
+	/**
+	 * Metoda wywo³uj¹ca update dla wszystkich elementów gry
+	 */
 	public void update() {
-		for(Entity e:entity){
+		for (Entity e : entity) {
 			e.update();
 		}
-		
-		for(EnviromentObject eo:enviromentObject){
+
+		for (EnviromentObject eo : enviromentObject) {
 			eo.update();
 		}
 	}
-	
+
+	/**
+	 * Metoda dodaj¹ca element do listy obiektów {@link Entity}
+	 * 
+	 * @param en
+	 *            element, który chcemy dodaæ
+	 */
 	public void addEntity(Entity en) {
 		entity.add(en);
 	}
-	
+
+	/**
+	 * Metoda usuwaj¹ca element z listy obiektów {@link Entity}
+	 * 
+	 * @param en
+	 *            element, który chcemy usun¹æ
+	 */
 	public void removeEntity(Entity en) {
 		entity.remove(en);
 	}
-	
-	public void addEnviromentObject(EnviromentObject enO){
-		enviromentObject.add(enO);
+
+	/**
+	 * Metoda dodaj¹ca element do listy obiektów {@link EnviromentObject}
+	 * 
+	 * @param en
+	 *            element, który chcemy dodaæ
+	 */
+	public void addEnviromentObject(EnviromentObject en) {
+		enviromentObject.add(en);
 	}
-	
-	public void removeEnviromentObject(EnviromentObject enO){
-		enviromentObject.remove(enO);
+
+	/**
+	 * Metoda usuwaj¹ca element z listy obiektów {@link EnviromentObject}
+	 * 
+	 * @param en
+	 *            element, który chcemy usun¹æ
+	 */
+	public void removeEnviromentObject(EnviromentObject en) {
+		enviromentObject.remove(en);
 	}
-	
+
 	/**
 	 * Metoda odczytuj¹ca kolejne piksele pliku graficznego zawieraj¹ca dany
 	 * poziom gry. Dla zadanych wartoœci generowane s¹ odpowiednie elementy.
@@ -163,21 +210,29 @@ public class Handler {
 					addEntity(new KoopaTroopa(x * 64, y * 64 - 32, 64, 96, Id.koopaTroopa, gameLogic, Facing.left));
 				if (red == 0 && (green >= 122 && green <= 129) && blue == 0) {
 					if (green == 129)
-						addEnviromentObject(new Pipe(x * 64, y * 64, 128, 64, Id.pipe, gameLogic, TypeOfPipe.verticalOpenEntrance));
+						addEnviromentObject(
+								new Pipe(x * 64, y * 64, 128, 64, Id.pipe, gameLogic, TypeOfPipe.verticalOpenEntrance));
 					else if (green == 128)
-						addEnviromentObject(new Pipe(x * 64, y * 64, 128, 64, Id.pipe, gameLogic, TypeOfPipe.verticalClosedOutput));
+						addEnviromentObject(
+								new Pipe(x * 64, y * 64, 128, 64, Id.pipe, gameLogic, TypeOfPipe.verticalClosedOutput));
 					else if (green == 127)
-						addEnviromentObject(new Pipe(x * 64, y * 64, 128, 64, Id.pipe, gameLogic, TypeOfPipe.verticalPieceOfPipe));
+						addEnviromentObject(
+								new Pipe(x * 64, y * 64, 128, 64, Id.pipe, gameLogic, TypeOfPipe.verticalPieceOfPipe));
 					else if (green == 126)
-						addEnviromentObject(new Pipe(x * 64, y * 64, 128, 64, Id.pipe, gameLogic, TypeOfPipe.verticalTopOfConnector));
+						addEnviromentObject(new Pipe(x * 64, y * 64, 128, 64, Id.pipe, gameLogic,
+								TypeOfPipe.verticalTopOfConnector));
 					else if (green == 125)
-						addEnviromentObject(new Pipe(x * 64, y * 64, 128, 64, Id.pipe, gameLogic, TypeOfPipe.verticalBottomOfConnector));
+						addEnviromentObject(new Pipe(x * 64, y * 64, 128, 64, Id.pipe, gameLogic,
+								TypeOfPipe.verticalBottomOfConnector));
 					else if (green == 124)
-						addEnviromentObject(new Pipe(x * 64, y * 64, 64, 128, Id.pipe, gameLogic, TypeOfPipe.horizontalEntrance));
+						addEnviromentObject(
+								new Pipe(x * 64, y * 64, 64, 128, Id.pipe, gameLogic, TypeOfPipe.horizontalEntrance));
 					else if (green == 123)
-						addEnviromentObject(new Pipe(x * 64, y * 64, 64, 128, Id.pipe, gameLogic, TypeOfPipe.horizontalPieceOfPipe));
+						addEnviromentObject(new Pipe(x * 64, y * 64, 64, 128, Id.pipe, gameLogic,
+								TypeOfPipe.horizontalPieceOfPipe));
 					else if (green == 122)
-						addEnviromentObject(new Pipe(x * 64, y * 64, 128, 64, Id.pipe, gameLogic, TypeOfPipe.verticalOpenOutput));
+						addEnviromentObject(
+								new Pipe(x * 64, y * 64, 128, 64, Id.pipe, gameLogic, TypeOfPipe.verticalOpenOutput));
 				}
 				if (red == 140 && green == 250 && blue == 200)
 					addEntity(new PiranhaPlant(x * 64 - 32, y * 64, 64, 96, Id.piranhaPlant, gameLogic));
@@ -199,8 +254,8 @@ public class Handler {
 	}
 
 	/**
-	 * Metoda czyszcz¹ca poziom, usuwaj¹ca wszystkie elementy z list tile i
-	 * entity
+	 * Metoda czyszcz¹ca poziom, usuwaj¹ca wszystkie elementy z list elementów
+	 * typu {@link EnviromentObject} i {@link Entity}
 	 */
 	public void clearLevel() {
 		entity.clear();

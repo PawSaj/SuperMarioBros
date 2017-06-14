@@ -8,7 +8,7 @@ import com.project.mario.GameLogic;
  * Moja w³asna klasa opisuj¹ca Button, zamiast dostarczonej w pakiecie, by
  * wiedzieæ dok³adnie co mogê zrobiæ z moim guzikeim
  * 
- *
+ * 
  */
 public class Button {
 	/**
@@ -43,7 +43,8 @@ public class Button {
 		g.setFont(g.getFont().deriveFont((float) height - 20));
 		g.drawString(getLabel(), getX(), getY() + height);
 		if (isSelected()) {
-			g.drawImage(gameLogic.graphics.selectingMushroom.getBufferedImage(), x - 64, y + 16, height - 16, height - 16, null);
+			g.drawImage(gameLogic.graphics.selectingMushroom.getBufferedImage(), x - 64, y + 16, height - 16,
+					height - 16, null);
 		}
 	}
 

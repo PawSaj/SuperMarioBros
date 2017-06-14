@@ -8,24 +8,28 @@ import com.project.mario.enums.Id;
 
 /**
  * Klasa generuj¹ca pojedyncze elementy wiruj¹ce, nale¿¹ce do FireBlock'u
- *
+ * 
+ * 
  */
 public class Fireball extends EnviromentObject {
+
 	/**
 	 * @param angle
 	 *            k¹t obrotu pod jakim znajduje siê fragment p³omienia
 	 * @param radius
 	 *            promieñ o jaki jest oddalony od centrum bloku
 	 * @param centerX
-	 * @paramcenterY Wspó³rzêdne œrodka okrêgu, po którym porusza siê element
+	 *            Wspó³rzêdna œrodka okrêgu, po którym porusza siê element
+	 * @param centerY
+	 *            Wspó³rzêdna œrodka okrêgu, po którym porusza siê element
 	 */
 	private float angle;
 	private int radius;
 	private int centerX, centerY;
 	private Facing facing;
 
-	public Fireball(int x, int y, int width, int height, Id id, GameLogic gameLogic, Facing facing, int radius, int centerX,
-			int centerY) {
+	public Fireball(int x, int y, int width, int height, Id id, GameLogic gameLogic, Facing facing, int radius,
+			int centerX, int centerY) {
 		super(x, y, width, height, id, gameLogic);
 		this.facing = facing;
 		this.radius = radius;
@@ -34,10 +38,21 @@ public class Fireball extends EnviromentObject {
 		angle = 0;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.project.mario.enviroment.EnviromentObject#render(java.awt.Graphics)
+	 */
 	public void render(Graphics g) {
 		g.drawImage(gameLogic.graphics.marioFireball[frame].getBufferedImage(), x, y, width, height, null);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.enviroment.EnviromentObject#update()
+	 */
 	public void update() {
 		if (facing == Facing.left)
 			angle++;

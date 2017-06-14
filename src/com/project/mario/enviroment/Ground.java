@@ -15,6 +15,12 @@ public class Ground extends EnviromentObject {
 		super(x, y, width, height, id, gameLogic);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.project.mario.enviroment.EnviromentObject#render(java.awt.Graphics)
+	 */
 	public void render(Graphics g) {
 		if (id == Id.ground)
 			g.drawImage(gameLogic.graphics.block[7][isUnderground].getBufferedImage(), x, y, width, height, null);
@@ -30,6 +36,11 @@ public class Ground extends EnviromentObject {
 			g.drawImage(gameLogic.graphics.block[12][0].getBufferedImage(), x, y, width, height, null);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.project.mario.enviroment.EnviromentObject#update()
+	 */
 	public void update() {
 		;
 	}

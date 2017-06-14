@@ -9,12 +9,18 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Klasa odpowiedzialna za ³adowanie i przechowywanie elementów graficznych gry
+ * 
+ * @author Pawe³ Sajnóg
+ *
+ */
 public class GraphicsLoader {
 	public Spritesheet sheet;
-	
+
 	public BufferedImage[] levelImages;
 	public Image[] levelBackgrounds;
-	
+
 	public Sprite[][] block;
 	public Sprite[] pipeVerical;
 	public Sprite[] pipeHorizontal;
@@ -36,27 +42,28 @@ public class GraphicsLoader {
 	public Sprite deadKoopa;
 	public Sprite[] piranhaPlant;
 	public Sprite[] marioFireball;
-	
+
 	public Font font;
-	
+
 	public Sprite selectingMushroom;
-	
+
 	public GraphicsLoader() {
 		sheet = new Spritesheet("./res/spritesheet.png");
-		
+
 		initLevelBackgroundImages();
 		initLevelImages();
 		initEntityElements();
 		initEnviromentElements();
 		initPowerUpElements();
 		initFont();
-		
+
 		initLauncherElements();
-		
-		
-		
+
 	}
-	
+
+	/**
+	 * Metoda ³aduj¹ca t³a poziomów.
+	 */
 	private void initLevelBackgroundImages() {
 		File[] levelFiles = graphicFilesArray("background");
 
@@ -75,12 +82,18 @@ public class GraphicsLoader {
 			}
 		}
 	}
-	
+
+	/**
+	 * Metoda ³aduj¹ca elementu launchera.
+	 */
 	private void initLauncherElements() {
 		selectingMushroom = new Sprite(sheet, 10, 8, 1);
-		
+
 	}
 
+	/**
+	 * Metoda ³aduj¹ca fonty gry.
+	 */
 	private void initFont() {
 		try {
 			File file = new File("./res/fonts/marioFont.ttf");
@@ -91,12 +104,26 @@ public class GraphicsLoader {
 		}
 	}
 
+	/**
+	 * Metoda pobieraj¹ca numer z nazwy pliku.
+	 * 
+	 * @param path
+	 *            Œcie¿ka pliku
+	 * @return numer wyci¹gniêty z nazwy plikus
+	 */
 	private int getNumberFromFileName(String path) {
 		path = path.replaceAll("\\D+", "");
 
 		return Integer.parseInt(path);
 	}
-	
+
+	/**
+	 * Metoda wyszukuj¹ca pliki zawieraj¹ce konkretny ciœg znaków w nazwie.
+	 * 
+	 * @param nameOfLookingFiles
+	 *            Nazwa poszukiwanego pliku.
+	 * @return Pliki pasuj¹ce do zadanej nazwy.
+	 */
 	private File[] graphicFilesArray(final String nameOfLookingFiles) {
 		File file = new File("./res/");
 		final String extension;
@@ -116,6 +143,9 @@ public class GraphicsLoader {
 		return files;
 	}
 
+	/**
+	 * Metoda ³aduj¹ca pliki graficzne poziomów.
+	 */
 	private void initLevelImages() {
 		File[] levelFiles = graphicFilesArray("level");
 
@@ -135,6 +165,9 @@ public class GraphicsLoader {
 
 	}
 
+	/**
+	 * Metoda ³aduj¹ca grafikê jednostek.
+	 */
 	private void initEntityElements() {
 		player = new Sprite[17][2];
 		goomba = new Sprite[3];
@@ -176,6 +209,9 @@ public class GraphicsLoader {
 		}
 	}
 
+	/**
+	 * Metoda ³¹duj¹ca grafikê elementów œrodowiska.
+	 */
 	private void initEnviromentElements() {
 		block = new Sprite[13][2];
 		pipeVerical = new Sprite[5];
@@ -209,6 +245,9 @@ public class GraphicsLoader {
 		}
 	}
 
+	/**
+	 * Metoda ³aduj¹ca grafikê ulepszeñ.
+	 */
 	private void initPowerUpElements() {
 		mushroom = new Sprite(sheet, 3, 5, 1);
 		starman = new Sprite[3];
@@ -222,6 +261,5 @@ public class GraphicsLoader {
 			fireFlow[i] = new Sprite(sheet, i + 4, 5, 1);
 		}
 	}
-	
-	
+
 }

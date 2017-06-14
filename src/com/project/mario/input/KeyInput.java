@@ -12,7 +12,6 @@ import com.project.mario.enums.TypeOfPipe;
 import com.project.mario.enviroment.EnviromentObject;
 import com.project.mario.gui.Button;
 
-
 /**
  * Klasa s³u¿¹ca do obs³ugi klawiatury
  *
@@ -30,6 +29,9 @@ public class KeyInput implements KeyListener {
 		released = true;
 	}
 
+	/**
+	 * Obs³uga klawiszy w menu g³ównym
+	 */
 	private void launcherKeyListener() {
 		if (!gameLogic.playing) {
 			int numberOfButtons = launcherButtons.length;
@@ -68,10 +70,14 @@ public class KeyInput implements KeyListener {
 		}
 	}
 
+	/**
+	 * Obs³uga klawiszy podczas gry.
+	 */
 	private void playingKeyListener() {
 		for (Entity e : gameLogic.handler.entity) {
-			if (e.getId() == Id.player && !(e.isGoingDownPipe() || e.isGoingUpPipe()) && e.getState() != PlayerStates.slidingOnPole
-					&& e.getState() != PlayerStates.goingToCastel && e.getState() != PlayerStates.dead && !gameLogic.showDeathScreen
+			if (e.getId() == Id.player && !(e.isGoingDownPipe() || e.isGoingUpPipe())
+					&& e.getState() != PlayerStates.slidingOnPole && e.getState() != PlayerStates.goingToCastel
+					&& e.getState() != PlayerStates.dead && !gameLogic.showDeathScreen
 					&& e.getState() != PlayerStates.goingToPrinces) {
 				if (keys[KeyEvent.VK_W] || keys[KeyEvent.VK_UP]) {
 					if (!e.isJumping() && e.isGround()) {
@@ -94,11 +100,11 @@ public class KeyInput implements KeyListener {
 						tempGravity -= 8.0;
 						e.setGravity(tempGravity);
 					}
-					
+
 				}
 
 				if (keys[KeyEvent.VK_S] || keys[KeyEvent.VK_DOWN]) {
-					for (EnviromentObject env: gameLogic.handler.enviromentObject) {
+					for (EnviromentObject env : gameLogic.handler.enviromentObject) {
 						if (env.getId() == Id.pipe && env.getTypeOfPipe() == TypeOfPipe.verticalOpenEntrance) {
 							if (e.getBoundsBottomPipe().intersects(env.getBoundsPipe())) {
 								if (!e.isGoingDownPipe())
@@ -116,7 +122,7 @@ public class KeyInput implements KeyListener {
 					e.setVelX(-5);
 					e.setFacing(Facing.left);
 				} else if (keys[KeyEvent.VK_D] || keys[KeyEvent.VK_RIGHT]) {
-					for (EnviromentObject env: gameLogic.handler.enviromentObject) {
+					for (EnviromentObject env : gameLogic.handler.enviromentObject) {
 						if (env.getId() == Id.pipe && env.getTypeOfPipe() == TypeOfPipe.horizontalEntrance) {
 							if (e.getBounds().intersects(env.getBoundsLeft())) {
 								if (!e.isGoingUpPipe()) {
@@ -160,11 +166,21 @@ public class KeyInput implements KeyListener {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+	 */
 	public void keyPressed(KeyEvent e) {
 		keys[e.getKeyCode()] = true;
 		launcherKeyListener();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+	 */
 	public void keyReleased(KeyEvent e) {
 		keys[e.getKeyCode()] = false;
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -174,7 +190,7 @@ public class KeyInput implements KeyListener {
 	}
 
 	public void keyTyped(KeyEvent e) {
-		// ONLY CHARACTERS!!!!!
+		// ONLY CHARACTERS!!!!! dlatego nie u¿ywaæ
 	}
 
 	/**
