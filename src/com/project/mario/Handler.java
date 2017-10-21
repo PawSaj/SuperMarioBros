@@ -8,6 +8,7 @@ import com.project.mario.entity.Coin;
 import com.project.mario.entity.Entity;
 import com.project.mario.entity.mob.Bowser;
 import com.project.mario.entity.mob.Goomba;
+import com.project.mario.entity.mob.Goomba2;
 import com.project.mario.entity.mob.KoopaTroopa;
 import com.project.mario.entity.mob.PiranhaPlant;
 import com.project.mario.entity.mob.Player;
@@ -206,6 +207,10 @@ public class Handler {
 					addEnviromentObject(new BonusBlock(x * 64, y * 64, 64, 64, Id.hiddenCoinsBlock, gameLogic));
 				if (red == 0 && green == 255 && blue == 0)
 					addEntity(new Goomba(x * 64, y * 64, 64, 64, Id.goomba, gameLogic));
+				//--dodatkowy element w ramach zadania
+				if (red == 1 && green == 1 && blue == 1)
+					addEntity(new Goomba2(x * 64, y * 64, 64, 64, Id.goomba, gameLogic));
+				/////
 				if (red == 0 && green == 255 && blue == 255)
 					addEntity(new KoopaTroopa(x * 64, y * 64 - 32, 64, 96, Id.koopaTroopa, gameLogic, Facing.left));
 				if (red == 0 && (green >= 122 && green <= 129) && blue == 0) {

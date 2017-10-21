@@ -157,10 +157,10 @@ public abstract class Entity {
 	public void createMarioFireball() {
 		if (facing == Facing.left)
 			gameLogic.handler
-					.addEntity(new MarioFireball(x, y + height * 2 / 3, 24, 24, Id.marioFireball, gameLogic, facing));
+					.addEntity(new MarioFireball(x-32, y + height * 2 / 3, 24, 24, Id.marioFireball, gameLogic, facing));
 		else
 			gameLogic.handler.addEntity(
-					new MarioFireball(x + width, y + height * 2 / 3, 24, 24, Id.marioFireball, gameLogic, facing));
+					new MarioFireball(x + width+32, y + height * 2 / 3, 24, 24, Id.marioFireball, gameLogic, facing));
 		gameLogic.sounds.fireball.play();
 		isShooting = true;
 	}

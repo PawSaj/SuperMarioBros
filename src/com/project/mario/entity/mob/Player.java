@@ -724,6 +724,10 @@ public class Player extends Entity {
 					koopaCollision(e);
 				} else if (e.getId() == Id.deadKoopa) {
 					deadKoopaCollision(e);
+				} else if (e.getId() == Id.marioFireball) {
+					if (getBounds().intersects(e.getBounds()) && getState() != PlayerStates.immortal) {
+						hurting();
+					}
 				}
 			}
 		}
